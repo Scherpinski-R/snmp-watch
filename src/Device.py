@@ -4,7 +4,7 @@ import DeviceParameter
 
 
 class Device:
-    def __init__(self, deviceAlias, deviceIp, authCred, cryptCred, privCred):
+    def __init__(self, deviceAlias, deviceIp, authCred, privCred):
         self.alias = deviceAlias
         self.ipAddr = deviceIp
 
@@ -19,8 +19,7 @@ class Device:
         # Const:
         # TO-DO: add ifSpeed if there is time left
         # RAM - SWAP - Number Processes
-        self.parameterNameList = ['hrStorageSize.1',
-                             'hrStorageSize.3', 'hrSystemProcesses']
+        self.parameterNameList = ['hrStorageSize.1', 'hrStorageSize.3', 'hrSystemProcesses']
 
         self.deviceList = []
         self.populateParameterList()
