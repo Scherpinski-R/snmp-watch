@@ -1,6 +1,6 @@
 from easysnmp import Session
 
-import DeviceParameter
+from DeviceParameter import DeviceParameter
 
 
 class Device:
