@@ -16,7 +16,7 @@ class DeviceParameter:
     def setValue(self, minValue, maxValue):
         if(self._numSample == 0):
             print("LOG: no samples for " + self.getParameterName())
-        else
+        else:
             avgValue    = (self._sumSample)/(self._numSample)
             self.value  = (minValue, avgValue, maxValue)
     
