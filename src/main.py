@@ -13,7 +13,7 @@ def main():
 
     # ....skiping first 3 steps
     # device chosen somehow:
-    device = Device('Device-01', '192.168.0.106', ('MD5User','MD5UserPass'), ('MD5DESUser', 'MD5DESUserPass'))
+    device = Device('Device-01', '192.168.0.106', ('MD5DESUser','The Net-SNMP Demo Password'), ('MD5User', 'The Net-SNMP Demo Password'))
 
     device.createSession()
     # prob gonna change this function to return a tuple wich will feed some graphical engine
