@@ -7,7 +7,7 @@ class DeviceParameter:
         self._sumSample = 0
 
     def getParameterName(self):
-        return self.parameterName
+        return self.name
 
     def sumValue(self, newValue):
         self._numSample += 1
