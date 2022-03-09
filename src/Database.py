@@ -1,7 +1,7 @@
 import sqlite3
 
 class Database:
-    def __init__(self, databaseName)
+    def __init__(self, databaseName):
         self._databaseName = ""
         self.setDatabaseName(databaseName)
         
@@ -12,7 +12,7 @@ class Database:
 
         cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS login (
-                        user_Id INTEGER PRIMARY KEY,
+                        user_id INTEGER PRIMARY KEY,
                         user TEXT not null,
                         password TEXT
                     ); """)
@@ -31,7 +31,7 @@ class Database:
 
         cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS log (
-                        user_Id INTEGER PRIMARY KEY,
+                        user_id INTEGER PRIMARY KEY,
                         data DATE,
                         hora TIME,
                         min REAL,
@@ -43,7 +43,7 @@ class Database:
 
         #Created default user to test if DB works properly
         cursor.execute("""
-                    INSERT INTO login (user_Id, user, password) VALUES (0, root, toor)
+                    INSERT INTO login (user_id, user, password) VALUES (0, 'root', 'toor')
                     """)
 
         self.conn.commit()
@@ -51,7 +51,7 @@ class Database:
         self.close()
 
     def connect(self):
-        self.conn = sqlite3.connect( getDatabaseName() )
+        self.conn = sqlite3.connect( self.getDatabaseName() )
     
     def close(self):
         #self.conn value after close is None? need to check
@@ -68,13 +68,15 @@ class Database:
         #test self.conn value
         cursor = self.conn.cursor()
         cursor.execute("""
-            SELECT password FROM login WHERE user = ?
-            """, username) 
+            SELECT password FROM login WHERE user = ?;
+            """, (username,)) 
         
-        # will change to return some boolean if valid
-        for linha in cursor.fetchall():
-            print(linha)
+        password_line       = cursor.fetchall()
+        password_correct    = password_line[0]
+
+        print("User Input password: " + password)
+        print("DB correct password: " + password_correct)
         
-        return True
+        return password == password_correct
         
 
