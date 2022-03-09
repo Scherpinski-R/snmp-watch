@@ -51,6 +51,17 @@ class Device:
         for i in range(self.TIME * 3):
             for parameter in self.deviceList:
                 current_value   = self._session.get(parameter.getParameterName())
+                current_value   = current_value.value
+                
+                parameter.sumValue(current_value)
+                parameter.checkAndSetIfBiggestOrLowest(current_value)
+
                 print(current_value)
 
             time.sleep(20)  # wait 60s to get more samples
+
+        for parameter in self.deviceList:
+            print("The max value is: " + parameter.maxValue + "\n")
+            print("Biggest: " + parameter.value[2] + "\n")
+            print("Average: " + parameter.value[1] + "\n")
+            print("Lowest: " + parameter.value[0] + "\n")
