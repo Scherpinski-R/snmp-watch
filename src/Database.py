@@ -43,12 +43,7 @@ class Database:
 
         #Created default user to test if DB works properly
         cursor.execute("""
-                    BEGIN
-                        IF NOT EXIST (SELECT * FROM login WHERE user_id=0 AND user='root' AND password='toor')
-                        BEGIN
-                            INSERT INTO login (user_id, user, password) VALUES (0, 'root', 'toor')
-                        END
-                    END
+                    INSERT OR REPLACE INTO login (user_id, user, password) VALUES (0, 'root', 'toor')
                     """)
 
         self.conn.commit()
