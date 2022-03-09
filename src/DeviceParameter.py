@@ -4,7 +4,7 @@ class DeviceParameter:
         self.name_cur = parameterName       # Current Value of parameter
         self.name_max = parameterMaxName    # Max Resource avaiable of parameter
 
-        self.value = ( -1, -1, -1)             # (min, avg, max) values aquired
+        self.value = ( float('inf'), 0, float('-inf'))             # (min, avg, max) values aquired
         self.maxValue = -1
 
         self._numSample = 0
