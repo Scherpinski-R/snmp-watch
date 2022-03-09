@@ -24,7 +24,7 @@ def main():
     my_user.setUserId(uid)
 
     # Generic Login UserCase
-    if db.checkLogin(username, password):
+    if db.checkLogin(my_user.getUsername(), my_user.getPassword()):
         print("Valid Login!")
     else:
         print("Invalid Login")
