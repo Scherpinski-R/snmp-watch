@@ -43,7 +43,12 @@ class Database:
 
         #Created default user to test if DB works properly
         cursor.execute("""
-                    INSERT INTO login (user_id, user, password) VALUES (0, 'root', 'toor')
+                    BEGIN
+                        IF NOT EXIST (SELECT * FROM login WHERE user_id=0 AND user='root' AND password='toor')
+                        BEGIN
+                            INSERT INTO login (user_id, user, password) VALUES (0, 'root', 'toor')
+                        END
+                    END
                     """)
 
         self.conn.commit()
@@ -71,7 +76,13 @@ class Database:
             SELECT password FROM login WHERE user = ?;
             """, (username,)) 
         
-        password_line       = cursor.fetchall()
+        login_list           = cursor.fetchall()
+        # if 0, no user with this username, if more than 1 there's 2 users with same username(not user_id)
+        # but not a desirable behavior 
+        if len(login_list) == 0:                    
+            return False
+
+        password_line       = db_answer[0]          # assuming there is 1 valid user      
         password_correct    = password_line[0]
 
         print("User Input password: " + password)
