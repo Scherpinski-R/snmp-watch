@@ -43,7 +43,7 @@ class Device:
             return
 
         for parameter in self.deviceList:
-            if(parameter.isParameterLimited())
+            if parameter.isParameterLimited():
                 max_value   = self._session.get(parameter.getParameterMaxName())
                 max_value   = max_value.value               #shadowing variable SNTP Var -> Value
                 parameter.setMaxValue(max_value)
