@@ -1,7 +1,6 @@
 from easysnmp import Session
-
 from DeviceParameter import DeviceParameter
-
+import time
 
 class Device:
     def __init__(self, deviceAlias, deviceIp, authCred, privCred):
@@ -29,6 +28,7 @@ class Device:
         
         ## if more parameters are going to be added put them above
 
+        self.TIME = 1 # constant to show how many minutes will be sampled
 
     def createSession(self):
         self._session = Session(hostname=self.ipAddr, version=3, security_level="auth_with_privacy", auth_protocol="MD5",
@@ -48,7 +48,9 @@ class Device:
                 max_value   = max_value.value               #shadowing variable SNTP Var -> Value
                 parameter.setMaxValue(max_value)
 
-            current_value   = self._session.get(parameter.getParameterName())
+            for i in range(self.TIME * 3):
+                for parameter in self.deviceList:
+                    current_value   = self._session.get(parameter.getParameterName())
+                    print(current_value)
 
-            # do smth with value - prob compare with min, max and add to create new avg with deviceParameter methods
-            print(current_value)
+                time.sleep(20)  # wait 60s to get more samples
