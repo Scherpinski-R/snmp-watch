@@ -117,3 +117,5 @@ class Database:
         cursor.execute("""
             INSERT INTO login (user_id, user, password) VALUES (?,?,?)
         """, (newUID, username, password))
+
+        return newUID
