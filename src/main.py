@@ -1,22 +1,29 @@
+from User import User
 from Device import Device
 from Database import Database
 
 def main():
 
     # login
-    username = 'raphael'
-    password = '1337pass'
-    # check in db login credentials
+    my_user = User()
+    my_user.setUsername('raphael')
+    my_user.setPassword('1337pass')
+
     db = Database('snmp-watch.db')
 
     db.connect()
 
-    uid = db.existUsername(username)
+    # Registering UserCase
+    uid = db.existUsername( my_user.getUsername() )
     if uid == -1:
-        print("Username avaible, registering...")
+        print("Username avaiable, registering...")
+        uid = db.addUser( my_user.getUsername(), my_user.getPassword() )
+    else:
+        print("Username not avaiable!")
+                
+    my_user.setUserId(uid)
 
-    db.addUser(username, password)
-
+    # Generic Login UserCase
     if db.checkLogin(username, password):
         print("Valid Login!")
     else:
