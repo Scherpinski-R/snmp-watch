@@ -8,16 +8,16 @@ class Database:
         self.conn = None
         self.connect()
 
-        self.cursor = self.conn.cursor()
+        cursor = self.conn.cursor()
 
-        self.cursor.execute(""" 
+        cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS login (
                         user_Id INTEGER PRIMARY KEY,
                         user TEXT not null,
                         password TEXT
                     ); """)
 
-        self.cursor.execute(""" 
+        cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS agent (
                         user_Id INTEGER PRIMARY KEY,
                         user TEXT not null,
@@ -29,7 +29,7 @@ class Database:
                         REFERENCES login (user_id)
                     ); """)
 
-        self.cursor.execute(""" 
+        cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS log (
                         user_Id INTEGER PRIMARY KEY,
                         data DATE,
@@ -40,14 +40,21 @@ class Database:
                         FOREIGN KEY (user_id)
                         REFERENCES login (user_id)
                     ); """)
-    
+
+        #Created default user to test if DB works properly
+        cursor.execute("""
+                    INSERT INTO login (user_Id, user, password) VALUES (0, root, toor)
+                    """)
+
         self.conn.commit()
+   
         self.close()
 
     def connect(self):
         self.conn = sqlite3.connect( getDatabaseName() )
     
     def close(self):
+        #self.conn value after close is None? need to check
         self.conn.close()
 
     def setDatabaseName(self, databaseName):
@@ -56,3 +63,18 @@ class Database:
     
     def getDatabaseName(self):
         return self._databaseName
+
+    def checkLogin(self, username, password):
+        #test self.conn value
+        cursor = self.conn.cursor()
+        cursor.execute("""
+            SELECT password FROM login WHERE user = ?
+            """, username) 
+        
+        # will change to return some boolean if valid
+        for linha in cursor.fetchall():
+            print(linha)
+        
+        return True
+        
+
