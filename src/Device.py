@@ -51,4 +51,4 @@ class Device:
             current_value   = self._session.get(parameter.getParameterName())
 
             # do smth with value - prob compare with min, max and add to create new avg with deviceParameter methods
-            print(value)
+            print(current_value)
