@@ -84,5 +84,36 @@ class Database:
         print("DB correct password: " + password_correct)
         
         return password == password_correct
-        
 
+    def existUsername(self, username):
+        invalid_user_id = -1
+
+        cursor = self.conn.cursor()
+
+        cursor.execute(""" 
+            SELECT user_id FROM login WHERE user=?
+        """, (username,))
+
+        login_list = cursor.fetchall() 
+
+        if len(login_list) == 0:
+            return invalid_user_id          # invalid user_id - no such user
+        else:
+            login_line = login_list[0]
+            return login_line[0]            # user_id
+
+    def addUser(self, username, password):
+        cursor = self.conn.cursor()
+
+        cursor.execute("""
+            SELECT count(user_id) FROM login
+        """)
+
+        login_list = cursor.fetchall()
+        login_line  = login_list[0]
+        
+        newUID = (int)(login_line[0]) # if there is 2 users, uid: 0 and 1, next will be 2 = count(user_id)
+
+        cursor.execute("""
+            INSERT INTO login (user_id, user, password) VALUES (?,?,?)
+        """, (newUID, username, password))
