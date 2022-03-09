@@ -38,6 +38,7 @@ class DeviceParameter:
         self._numSample += 1
         self._sumSample += newValue
 
+    #Need To change, read checkAndSetIfBiggestOrLowest TO-DO
     def setValue(self, minValue, maxValue):
         if(self._numSample == 0):
             print("LOG: no samples for " + self.getParameterName())
@@ -47,3 +48,15 @@ class DeviceParameter:
     
     def getValue(self):
         return self.value
+
+    def checkAndSetIfBiggestOrLowest(self, newValue):
+        ## TO_DO: Horrible the way it is, setting unecessary lower or bigger even when its unchanged
+        ## to fix: add setLowerValue, setBiggerValue, setAverage -- Refactor only here, if other method needs setValue fix ASAP
+
+        if newValue < self.value[0]:                    # if lowest then the lower until now
+            self.setValue(newValue, self.value[2])
+        else if newValue > self.value[2]:               # if biggest then the bigger until now
+            self.setValue(self.value[0], newValue)
+        else:
+            self.setValue(self.value[0], self.value[2])
+
