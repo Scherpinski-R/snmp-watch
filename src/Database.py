@@ -77,7 +77,7 @@ class Database:
         if len(login_list) == 0:                    
             return False
 
-        password_line       = db_answer[0]          # assuming there is 1 valid user      
+        password_line       = login_list[0]          # assuming there is 1 valid user      
         password_correct    = password_line[0]
 
         print("User Input password: " + password)
