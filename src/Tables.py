@@ -20,7 +20,9 @@ class Tables:
                     auth_user TEXT,
                     auth_cred TEXT,
                     priv_user TEXT,
-                    priv_cred TEXT
+                    priv_cred TEXT,
+                    FOREIGN KEY (user_id)
+                    REFERENCES login (user_id)
                 ); """)
 
     cursor.execute(""" 
@@ -30,7 +32,9 @@ class Tables:
                     hora TIME,
                     min REAL,
                     average REAL,
-                    max REAL
+                    max REAL,
+                    FOREIGN KEY (user_id)
+                    REFERENCES login (user_id)
                 ); """)
     
     conn.commit()
