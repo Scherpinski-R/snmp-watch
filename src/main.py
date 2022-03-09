@@ -1,36 +1,30 @@
 from User import User
 from Device import Device
 from Database import Database
+from Login import Login
+from Controller import Controller
 
 def main():
 
-    # login
-    my_user = User()
-    my_user.setUsername('raphael')
-    my_user.setPassword('1337pass')
-
-    db = Database('snmp-watch.db')
-
-    db.connect()
+    myController    = Controller()
+    myLoginView     = Login(myController)
 
     # Registering UserCase
-    uid = db.existUsername( my_user.getUsername() )
-    if uid == -1:
-        print("Username avaiable, registering...")
-        uid = db.addUser( my_user.getUsername(), my_user.getPassword() )
-    else:
-        print("Username not avaiable!")
+    #uid = db.existUsername( my_user.getUsername() )
+    #if uid == -1:
+   #     print("Username avaiable, registering...")
+    #    uid = db.addUser( my_user.getUsername(), my_user.getPassword() )
+  #  else:
+ #       print("Username not avaiable!")
                 
-    my_user.setUserId(uid)
+#    my_user.setUserId(uid)
 
     # Generic Login UserCase
-    if db.checkLogin(my_user.getUsername(), my_user.getPassword()):
-        print("Valid Login!")
-    else:
-        print("Invalid Login")
+    #if db.checkLogin(my_user.getUsername(), my_user.getPassword()):
+    #    print("Valid Login!")
+    #else:
+    #    print("Invalid Login")
     
-    db.close()
-
     # choose wich agent to run analytics or create new profile(new agent)
     # create Session for the chosen agent
     # perform analytics
