@@ -22,7 +22,13 @@ class Device:
         self.parameterNameList = ['hrStorageSize.1', 'hrStorageSize.3', 'hrSystemProcesses']
 
         self.deviceList = []
-        self.populateParameterList()
+
+        self.deviceList.append( DeviceParameter('RAM', 'hrStorageUsed.1', 'hrStorageSize.1') )
+        self.deviceList.append( DeviceParameter('SWAP', 'hrStorageUsed.10', 'hrStorageSize.10') )
+        self.deviceList.append( DeviceParameter('Number Processes', 'hrSystemProcesses.0', 'hrSystemMaxProcesses.0') )
+        
+        ## if more parameters are going to be added put them above
+
 
     def createSession(self):
         self._session = Session(hostname=self.ipAddr, version=3, security_level="auth_with_privacy", auth_protocol="MD5",
@@ -31,17 +37,18 @@ class Device:
         if self._session == None:
             print("LOG: Failed to create Session")
 
-    def populateParameterList(self):
-        for parameter in self.parameterNameList:
-            self.deviceList.append(DeviceParameter(parameter))
-
     def performAnalytics(self):
         if self._session == None:
             print("LOG: Session not Created")
             return
 
         for parameter in self.deviceList:
-            value = self._session.get(parameter.getParameterName())
+            if(parameter.isParameterLimited())
+                max_value   = self._session.get(parameter.getParameterMaxName())
+                max_value   = max_value.value               #shadowing variable SNTP Var -> Value
+                parameter.setMaxValue(max_value)
+
+            current_value   = self._session.get(parameter.getParameterName())
 
             # do smth with value - prob compare with min, max and add to create new avg with deviceParameter methods
             print(value)
