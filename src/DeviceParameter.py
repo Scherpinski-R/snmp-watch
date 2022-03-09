@@ -55,7 +55,7 @@ class DeviceParameter:
 
         if newValue < self.value[0]:                    # if lowest then the lower until now
             self.setValue(newValue, self.value[2])
-        else if newValue > self.value[2]:               # if biggest then the bigger until now
+        elif newValue > self.value[2]:               # if biggest then the bigger until now
             self.setValue(self.value[0], newValue)
         else:
             self.setValue(self.value[0], self.value[2])
