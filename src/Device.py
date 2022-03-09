@@ -48,9 +48,9 @@ class Device:
                 max_value   = max_value.value               #shadowing variable SNTP Var -> Value
                 parameter.setMaxValue(max_value)
 
-            for i in range(self.TIME * 3):
-                for parameter in self.deviceList:
-                    current_value   = self._session.get(parameter.getParameterName())
-                    print(current_value)
+        for i in range(self.TIME * 3):
+            for parameter in self.deviceList:
+                current_value   = self._session.get(parameter.getParameterName())
+                print(current_value)
 
-                time.sleep(20)  # wait 60s to get more samples
+            time.sleep(20)  # wait 60s to get more samples
