@@ -43,7 +43,10 @@ class Login(tk.Tk):
 
         self.login_button = ttk.Button(self, text="Login", width=10, command=lambda:self.loginButtonPressed(self.username_entry.get(), self.password_entry.get()))
         self.login_button.grid(column=0, row=3, columnspan=2, padx=5, pady=5)
-        
+
+        self.register_button = ttk.Button(self, text="Register", width=10, command=lambda:self.loginButtonPressed(self.username_entry.get(), self.password_entry.get()))
+        self.register_button.grid(column=1, row=3, padx=5, pady=5)
+
     def loginButtonPressed(self, username, password):
         sucess = self.controller.LoginSetUserCredentials(username, password)
         
@@ -54,3 +57,12 @@ class Login(tk.Tk):
             self.username_entry.config({"background": "Red"})
             self.password_entry.config({"background": "Red"})
             print("Wrong credentials")
+
+    def registerButtonPressed(self, username, password):
+        sucess = self.controller.RegisterSetUserCredentials(username, password)
+
+        if sucess == True:
+            #sucess, warn user
+            print("Registered user..., please proceed with login")
+        else:
+            print("Error registering... ")
