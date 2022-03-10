@@ -19,26 +19,28 @@ class Database:
 
         cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS agent (
-                        user_Id INTEGER PRIMARY KEY,
-                        user TEXT not null,
+                        user_id INTEGER,
+                        agent_id INTEGER,
+                        ip_addr TEXT,
                         auth_user TEXT,
                         auth_cred TEXT,
                         priv_user TEXT,
-                        priv_cred TEXT,
-                        FOREIGN KEY (user_id)
-                        REFERENCES login (user_id)
+                        priv_cred TEXT, 
+                        FOREIGN KEY (user_id) REFERENCES login (user_id),
+                        CONSTRAINT pk_UA primary key(user_id, agent_id)
                     ); """)
 
         cursor.execute(""" 
                     CREATE TABLE IF NOT EXISTS log (
-                        user_id INTEGER PRIMARY KEY,
+                        log_id INTEGER,
+                        user_id INTEGER,
                         data DATE,
                         hora TIME,
                         min REAL,
                         average REAL,
                         max REAL,
-                        FOREIGN KEY (user_id)
-                        REFERENCES login (user_id)
+                        FOREIGN KEY (user_id) REFERENCES login (user_id),
+                        CONSTRAINT pk_UL primary key(user_id, log_id)
                     ); """)
 
         #Created default user to test if DB works properly
