@@ -126,22 +126,22 @@ class Database:
 
         return newUID
 
-    def addAgent(self, device, user_id):
+    def addAgent(self, device, user):
         cursor = self.conn.cursor()
 
         cursor.execute("""
             SELECT count(user_id) FROM agent WHERE user_id = ?      
-        """, (user_id,))
+        """, (user.getUserId(),))
 
         agent_list  = cursor.fetchall()
         agent_line  = agent_list[0]
         agent_id    = (int)(agent_line[0])
 
-        print("id: " + str(user_id) + " has " + str(numero_agentes) + "agents.")
+        print("id: " + str(user.getUserId()) + " has " + str(numero_agentes) + "agents.")
 
         cursor.execute("""
             INSERT INTO agent (user_id, agent_id, ip_addr, auth_user, auth_cred, priv_user, priv_cred) VALUES (?,?,?,?,?,?,?)
-        """, (user_id, agent_id, device.ip_addr, device.auth[0], device.auth[1], device.auth[0], device.auth[1]))
+        """, (user.getUserId(), agent_id, device.ip_addr, device.auth[0], device.auth[1], device.auth[0], device.auth[1]))
 
         self.conn.commit()
 
