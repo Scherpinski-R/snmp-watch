@@ -38,3 +38,6 @@ class Controller:
 
     def createAppView(self):
         print("Going to create an App view")
+
+        list_agents = self.db.searchAgentsFromUser(self.my_user)
+        print(list_agents)

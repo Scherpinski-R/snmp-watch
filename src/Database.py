@@ -145,12 +145,12 @@ class Database:
 
         self.conn.commit()
 
-    def searchAgentsFromUser(self, user_id):
+    def searchAgentsFromUser(self, user):
         cursor = self.conn.cursor()
 
         cursor.execute("""
             SELECT * FROM agent WHERE user_id = ?
-        """, (user_id,))
+        """, (user.getUserId(),))
 
         agent_list = cursor.fetchall()
 
