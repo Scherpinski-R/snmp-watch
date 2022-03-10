@@ -13,7 +13,7 @@ class Controller:
 
         self.db.connect()
 
-        login_id = self.db.checkLogin(self.my_user.getUsername(), self.my_user.getPassword()):
+        login_id = self.db.checkLogin(self.my_user.getUsername(), self.my_user.getPassword())
         self.my_user.setUserId(login_id)
 
         invalid_id = -1                 #constant invalid_id
@@ -42,8 +42,16 @@ class Controller:
         print("Going to create an App view")
 
         self.db.connect()
+        #usuario forneceria numa entry os dados abaixo
         device = Device('Device-01', '192.168.0.106', ('MD5DESUser','The Net-SNMP Demo Password'), ('MD5User', 'The Net-SNMP Demo Password'))
         self.db.addAgent(device, self.my_user)
+        #essa lista alimentaria um canvas com varias opcoes de sessoes
         list_agents = self.db.searchAgentsFromUser(self.my_user)
+        #ao usuario apertar um botao, receberiamos o agent_id + user_id e preencheriamos uma estrutura device   
+        device.createSession()
+        #apos receber feedBack da perform analytics adicionaria o ultimo resultado ao DB e mostraria ao usuario as ultimas N analises
+        device.performAnalytics()
+
+
         self.db.close()
         print(list_agents)

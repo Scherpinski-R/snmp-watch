@@ -9,20 +9,5 @@ def main():
     myController    = Controller()
     myLoginView     = Login(myController)
 
-    # choose wich agent to run analytics or create new profile(new agent)
-    # create Session for the chosen agent
-    # perform analytics
-    # display result
-    ## store in db
-
-    # ....skiping first 3 steps
-    # device chosen somehow:
-    #device = Device('Device-01', '192.168.0.106', ('MD5DESUser','The Net-SNMP Demo Password'), ('MD5User', 'The Net-SNMP Demo Password'))
-
-    #device.createSession()
-    # prob gonna change this function to return a tuple wich will feed some graphical engine
-    #device.performAnalytics()
-
-
 if __name__ == '__main__':
     main()
