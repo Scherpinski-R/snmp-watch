@@ -41,10 +41,10 @@ class Login(tk.Tk):
         self.password_entry = ttk.Entry(self, show="*")
         self.password_entry.grid(column=1, row=2, sticky=tk.W, padx=5, pady=5)
 
-        self.login_button = ttk.Button(self, text="Login", width=10, command=lambda:self.loginButtonPressed(self.username_entry.get(), self.password_entry.get()))
+        self.login_button = ttk.Button(self, text="Login", width=5, command=lambda:self.loginButtonPressed(self.username_entry.get(), self.password_entry.get()))
         self.login_button.grid(column=0, row=3, columnspan=2, padx=5, pady=5)
 
-        self.register_button = ttk.Button(self, text="Register", width=10, command=lambda:self.loginButtonPressed(self.username_entry.get(), self.password_entry.get()))
+        self.register_button = ttk.Button(self, text="Register", width=5, command=lambda:self.registerButtonPressed(self.username_entry.get(), self.password_entry.get()))
         self.register_button.grid(column=1, row=3, padx=5, pady=5)
 
     def loginButtonPressed(self, username, password):
