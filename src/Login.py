@@ -16,7 +16,7 @@ class Login(tk.Tk):
         self.columnconfigure(1, weight=1)
 
         #default theme -- we can retrieve here from db too
-        source_path = "../Azure-ttk-theme/azure.tcl"
+        source_path = "../include/Azure-ttk-theme/azure.tcl"
         self.tk.call("source", source_path)
         self.tk.call("set_theme", "dark")
 
