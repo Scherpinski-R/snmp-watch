@@ -9,22 +9,6 @@ def main():
     myController    = Controller()
     myLoginView     = Login(myController)
 
-    # Registering UserCase
-    #uid = db.existUsername( my_user.getUsername() )
-    #if uid == -1:
-   #     print("Username avaiable, registering...")
-    #    uid = db.addUser( my_user.getUsername(), my_user.getPassword() )
-  #  else:
- #       print("Username not avaiable!")
-                
-#    my_user.setUserId(uid)
-
-    # Generic Login UserCase
-    #if db.checkLogin(my_user.getUsername(), my_user.getPassword()):
-    #    print("Valid Login!")
-    #else:
-    #    print("Invalid Login")
-    
     # choose wich agent to run analytics or create new profile(new agent)
     # create Session for the chosen agent
     # perform analytics
