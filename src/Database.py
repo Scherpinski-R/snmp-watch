@@ -125,3 +125,33 @@ class Database:
         self.conn.commit()
 
         return newUID
+
+    def addAgent(self, device, user_id):
+        cursor = self.conn.cursor()
+
+        cursor.execute("""
+            SELECT count(user_id) FROM agent WHERE user_id = ?      
+        """, (user_id,))
+
+        agent_list  = cursor.fetchall()
+        agent_line  = agent_list[0]
+        agent_id    = (int)(agent_line[0])
+
+        print("id: " + str(user_id) + " has " + str(numero_agentes) + "agents.")
+
+        cursor.execute("""
+            INSERT INTO agent (user_id, agent_id, ip_addr, auth_user, auth_cred, priv_user, priv_cred) VALUES (?,?,?,?,?,?,?)
+        """, (user_id, agent_id, device.ip_addr, device.auth[0], device.auth[1], device.auth[0], device.auth[1]))
+
+        self.conn.commit()
+
+    def searchAgentsFromUser(self, user_id):
+        cursor = self.conn.cursor()
+
+        cursor.execute("""
+            SELECT * FROM agent WHERE user_id = ?
+        """, (user_id,))
+
+        agent_list = cursor.fetchall()
+
+        return agent_list
