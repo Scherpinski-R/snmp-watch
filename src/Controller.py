@@ -21,6 +21,20 @@ class Controller:
     
         self.db.close()
         return sucess
+    
+    def RegisterSetUserCredentials(self, username, password):
+        self.my_user.setUsername(username)
+        self.my_user.setPassword(password)
+
+        self.db.connect()
+
+        if self.db.existUsername( self.my_user.getUsername() ) != -1:
+            print("Username already in use")
+            return False
+        else:
+            newUID = self.db.addUser( self.my_user.getUsername(), self.my_user.getPassword() )
+            self.my_user.setUserId( newUID )
+            return True
 
     def createAppView(self):
         print("Going to create an App view")
