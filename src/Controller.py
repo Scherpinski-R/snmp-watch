@@ -1,5 +1,6 @@
 from User import User
 from Database import Database
+from Device import Device
 
 class Controller:
     def __init__(self):
@@ -43,6 +44,8 @@ class Controller:
         print("Going to create an App view")
 
         self.db.connect()
+        device = Device('Device-01', '192.168.0.106', ('MD5DESUser','The Net-SNMP Demo Password'), ('MD5User', 'The Net-SNMP Demo Password'))
+        self.db.addAgent(device, self.my_user)
         list_agents = self.db.searchAgentsFromUser(self.my_user)
         self.db.close()
         print(list_agents)
