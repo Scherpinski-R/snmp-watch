@@ -120,4 +120,6 @@ class Database:
             INSERT INTO login (user_id, user, password) VALUES (?,?,?)
         """, (newUID, username, password))
 
+        self.conn.commit()
+
         return newUID
