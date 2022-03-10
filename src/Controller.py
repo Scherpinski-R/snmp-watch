@@ -7,8 +7,8 @@ class Controller:
         self.db = Database('snmp-watch.db')
         
     def LoginSetUserCredentials(self, username, password):
-        self.my_user.setUsername()
-        self.my_user.setPassword()
+        self.my_user.setUsername(username)
+        self.my_user.setPassword(password)
 
         self.db.connect()
 
@@ -19,8 +19,8 @@ class Controller:
             sucess = False
             print("Invalid Login")
     
-        db.close()
+        self.db.close()
         return sucess
 
-    def createAppView():
+    def createAppView(self):
         print("Going to create an App view")
