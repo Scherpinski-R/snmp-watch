@@ -30,14 +30,19 @@ class Controller:
 
         if self.db.existUsername( self.my_user.getUsername() ) != -1:
             print("Username already in use")
-            return False
+            sucess = False
         else:
             newUID = self.db.addUser( self.my_user.getUsername(), self.my_user.getPassword() )
             self.my_user.setUserId( newUID )
-            return True
+            sucess = True
+
+        self.db.close()
+        return sucess
 
     def createAppView(self):
         print("Going to create an App view")
 
+        self.db.connect()
         list_agents = self.db.searchAgentsFromUser(self.my_user)
+        self.db.close()
         print(list_agents)
