@@ -68,6 +68,11 @@ class Database:
 
     def checkLogin(self, username, password):
         #test self.conn value
+
+        user_id = self.existUsername(username)  ##Se nao existe username, ja retorna invalid user_id
+        if user_id == -1:
+            return -1
+
         cursor = self.conn.cursor()
         cursor.execute("""
             SELECT password FROM login WHERE user = ?;
@@ -85,7 +90,10 @@ class Database:
         print("User Input password: " + password)
         print("DB correct password: " + password_correct)
         
-        return password == password_correct
+        if password == password_correct:
+            return user_id
+        else:
+            return -1
 
     def existUsername(self, username):
         invalid_user_id = -1
@@ -137,11 +145,11 @@ class Database:
         agent_line  = agent_list[0]
         agent_id    = (int)(agent_line[0])
 
-        print("id: " + str(user.getUserId()) + " has " + str(numero_agentes) + "agents.")
+        print("id: " + str(user.getUserId()) + " has " + str(agent_id) + " agents.")
 
         cursor.execute("""
             INSERT INTO agent (user_id, agent_id, ip_addr, auth_user, auth_cred, priv_user, priv_cred) VALUES (?,?,?,?,?,?,?)
-        """, (user.getUserId(), agent_id, device.ip_addr, device.auth[0], device.auth[1], device.auth[0], device.auth[1]))
+        """, (user.getUserId(), agent_id, device.ipAddr, device.auth[0], device.auth[1], device.auth[0], device.auth[1]))
 
         self.conn.commit()
 

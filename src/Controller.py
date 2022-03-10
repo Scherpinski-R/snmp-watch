@@ -13,15 +13,13 @@ class Controller:
 
         self.db.connect()
 
-        if self.db.checkLogin(self.my_user.getUsername(), self.my_user.getPassword()):
-            sucess = True
-            print("Valid Login!")
-        else:
-            sucess = False
-            print("Invalid Login")
+        login_id = self.db.checkLogin(self.my_user.getUsername(), self.my_user.getPassword()):
+        self.my_user.setUserId(login_id)
+
+        invalid_id = -1                 #constant invalid_id
     
         self.db.close()
-        return sucess
+        return login_id != invalid_id
     
     def RegisterSetUserCredentials(self, username, password):
         self.my_user.setUsername(username)
