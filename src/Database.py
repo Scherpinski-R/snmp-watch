@@ -114,6 +114,8 @@ class Database:
         
         newUID = (int)(login_line[0]) # if there is 2 users, uid: 0 and 1, next will be 2 = count(user_id)
 
+        print(str(newUID) + ' ' + username + ' ' + password)
+
         cursor.execute("""
             INSERT INTO login (user_id, user, password) VALUES (?,?,?)
         """, (newUID, username, password))
